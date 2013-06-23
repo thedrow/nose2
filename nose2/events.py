@@ -1092,3 +1092,25 @@ class CreateTestsEvent(Event):
         self.testNames = testNames
         self.module = module
         super(CreateTestsEvent, self).__init__(**kw)
+
+
+class BeforeReportEvent(Event):
+    """
+    Event fired before data is being reported to an event's stream.
+
+    .. attribute :: stream:
+        The event's stream.
+    .. attribute :: data:
+        What was reported.
+    .. attribute :: kwargs:
+        Extra information required to handle this event.
+    """
+
+    _attrs = Event._attrs = ('stream', 'data', 'extra_info')
+
+    def __init__(self, stream, data, **kwargs):
+        self.stream = stream
+        self.data = data
+        self.extra_info = kwargs
+
+        super(BeforeReportEvent, self).__init__()

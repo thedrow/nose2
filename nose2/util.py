@@ -272,25 +272,6 @@ def _count_relevant_tb_levels(tb):
     return length
 
 
-class _WritelnDecorator(object):
-    """Used to decorate file-like objects with a handy 'writeln' method"""
-    def __init__(self, stream):
-        self.stream = stream
-
-    def __getattr__(self, attr):
-        if attr in ('stream', '__getstate__'):
-            raise AttributeError(attr)
-        return getattr(self.stream, attr)
-
-    def write(self, arg):
-        self.stream.write(arg)
-
-    def writeln(self, arg=None):
-        if arg:
-            self.stream.write(arg)
-        self.stream.write('\n') # text-mode streams translate to \r\n if needed
-
-
 def ancestry(layer):
     layers = [[layer]]
     bases = [base for base in bases_and_mixins(layer)

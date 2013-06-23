@@ -24,13 +24,13 @@ from abc import ABCMeta, abstractmethod
 
 import sys
 
-from nose2 import events, result, util
+from nose2 import events, result, util, stream
 import six
 __unittest = True
 
 
 class ReporterBase(events.Plugin):
-    __metaclass__ = ABCMeta
+    __metaclass__ = [ABCMeta, events.PluginMeta]
 
     def __init__(self):
         self.testsRun = 0
@@ -42,7 +42,7 @@ class ReporterBase(events.Plugin):
         self.dontReport = set(['errors', 'failures', 'skipped', 'passed',
                                'expectedFailures', 'unexpectedSuccesses'])
 
-        self.stream = util._WritelnDecorator(sys.stderr)
+        self.stream = stream._WritelnDecorator(sys.stderr, self.session)
         self.descriptions = self.config.as_bool('descriptions', True)
 
     @abstractmethod
