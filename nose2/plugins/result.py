@@ -20,20 +20,17 @@ runs to exit(1))
 # code developed in reference to that module and others within unittest2.
 # unittest2 is Copyright (c) 2001-2010 Python Software Foundation; All
 # Rights Reserved. See: http://docs.python.org/license.html
+from abc import ABCMeta, abstractmethod
 
 import sys
 
 from nose2 import events, result, util
-
+import six
 __unittest = True
 
 
-class ResultReporter(events.Plugin):
-    """Result plugin that implements standard unittest console reporting"""
-    alwaysOn = True
-    configSection = 'test-result'
-    separator1 = '=' * 70
-    separator2 = '-' * 70
+class ReporterBase(events.Plugin):
+    __metaclass__ = ABCMeta
 
     def __init__(self):
         self.testsRun = 0
@@ -47,6 +44,30 @@ class ResultReporter(events.Plugin):
 
         self.stream = util._WritelnDecorator(sys.stderr)
         self.descriptions = self.config.as_bool('descriptions', True)
+
+    @abstractmethod
+    def startTest(self, event):
+        pass
+
+    @abstractmethod
+    def testOutcome(self, event):
+        pass
+
+    @abstractmethod
+    def afterTestRun(self, event):
+        pass
+
+    @abstractmethod
+    def wasSuccessful(self, event):
+        pass
+
+
+class DefaultResultReporter(ReporterBase):
+    """Result plugin that implements standard unittest console reporting"""
+    alwaysOn = True
+    configSection = 'test-result'
+    separator1 = '=' * 70
+    separator2 = '-' * 70
 
     def startTest(self, event):
         """Handle startTest hook
@@ -105,7 +126,7 @@ class ResultReporter(events.Plugin):
         for name, events in self.reportCategories.items():
             for e in events:
                 if (e.outcome == result.ERROR or
-                    (e.outcome == result.FAIL and not e.expected)):
+                   (e.outcome == result.FAIL and not e.expected)):
                     event.success = False
                     break
 
