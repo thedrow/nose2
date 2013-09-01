@@ -42,3 +42,19 @@ You are witnesses at the new birth of nose, mark 2. Hope you enjoy our
 new direction!
 
 .. _differences: http://readthedocs.org/docs/nose2/en/latest/differences.html
+
+Contribute
+==========
+
+* Click on the badge below to see the storyboard
+
+.. _waffle image:: https://badge.waffle.io/nose-devs/nose2.png
+    :target: http://waffle.io/nose-devs/nose2
+    :alt: Stories in Ready
+
+* Pick one of the issues in the Ready column, move it to the in progress column and start working on it.
+
+    
+Or go directly to the `issues`_ page.
+
+.. _issues: https://github.com/nose-devs/nose2/issues
