@@ -48,9 +48,9 @@ Contribute
 
 * Click on the badge below to see the storyboard
 
-.. _waffle image:: https://badge.waffle.io/nose-devs/nose2.png
-    :target: http://waffle.io/nose-devs/nose2
-    :alt: Stories in Ready
+.. image:: https://badge.waffle.io/nose-devs/nose2.png
+        :target: http://waffle.io/nose-devs/nose2
+        :alt: Stories in Ready
 
 * Pick one of the issues in the Ready column, move it to the in progress column and start working on it.
 
